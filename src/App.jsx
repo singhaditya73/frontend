@@ -6,7 +6,7 @@ function App() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch('https://backend.adityasinghrajput755.workers.dev/search', {
+      const response = await fetch('https://backend-8z4.pages.dev/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
