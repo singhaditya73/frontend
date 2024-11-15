@@ -4,20 +4,25 @@ function App() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch('https://backend-8z4.pages.dev/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query }),
-      });
+  // Hardcoded database
+  const users = [
+    { name: 'Alice', email: 'alice@example.com', password: 'password123' },
+    { name: 'Bob', email: 'bob@example.com', password: 'password456' },
+    { name: 'Charlie', email: 'charlie@example.com', password: 'password789' },
+    { name: 'David', email: 'david@example.com', password: 'youfoundtheflag739' },
+  ];
 
-      const data = await response.json();
-      setResults(data);
-    } catch (error) {
-      console.error('Error during search:', error);
+  const handleSearch = () => {
+    // Simulate SQL injection vulnerability by checking for dangerous input
+    if (query.includes("'") || query.includes("|| true")) {
+      // If potentially dangerous input is detected, return all users
+      setResults(users);
+    } else {
+      // Otherwise, filter users by name
+      const filteredUsers = users.filter(user => 
+        user.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setResults(filteredUsers);
     }
   };
 
@@ -48,6 +53,4 @@ function App() {
   );
 }
 
- 
 export default App;
-
